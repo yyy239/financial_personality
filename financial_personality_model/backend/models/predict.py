@@ -25,7 +25,7 @@ questions = [
     "20. 你会定期评估和调整投资组合吗？\n    1=从不评估  5=定期调整"
 ]
 
-model = load_model("models/personality_model.keras")
+model = load_model("models/personality_model.h5")
 answers = []
 print("请回答以下问题，每题输入1~5之间的整数：\n")
 for q in questions:

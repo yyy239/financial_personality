@@ -85,7 +85,7 @@ history = model.fit(X, y / 100.0, epochs=100, batch_size=32, validation_split=0.
 
 # 保存模型和可视化图像
 os.makedirs("models", exist_ok=True)
-model.save("models/personality_model.keras")
+model.save("models/personality_model.h5")
 
 plt.plot(history.history['loss'], label='Train Loss')
 plt.plot(history.history['val_loss'], label='Val Loss')

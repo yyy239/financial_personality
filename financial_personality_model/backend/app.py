@@ -6,7 +6,7 @@ from flask_cors import CORS  # ← 添加这一行
 app = Flask(__name__)
 CORS(app)  # ← 允许跨域请求
 
-model = tf.keras.models.load_model("models/personality_model.keras")
+model = tf.keras.models.load_model("models/personality_model.h5")
 
 def interpret_score(score):
     if score < 25:
