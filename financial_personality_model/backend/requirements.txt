@@ -1,3 +1,4 @@
-flask
-tensorflow
 gunicorn
+flask==3.0.2
+flask-cors==4.0.0  # ← 新增此行
+tensorflow-cpu==2.15.0  # 建议用CPU版减少依赖问题
