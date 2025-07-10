@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import numpy as np
 import tensorflow as tf
 from flask_cors import CORS  # ← 添加这一行
+import os
 
 app = Flask(__name__)
 CORS(app)  # ← 允许跨域请求
@@ -34,6 +35,6 @@ def predict():
     })
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 1000))) 
 
 
