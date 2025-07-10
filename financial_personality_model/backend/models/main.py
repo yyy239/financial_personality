@@ -1,7 +1,7 @@
 import numpy as np
-from keras.models import Sequential
-from keras.layers import Input, Dense, Dropout, BatchNormalization
-from keras.callbacks import EarlyStopping
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Input, Dense, Dropout, BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 import os
 
