@@ -1,17 +1,17 @@
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, BatchNormalization
+from keras.layers import Input, Dense, Dropout, BatchNormalization
 from keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 import os
 
-# 问卷问题方向：+1 为激进倾向，-1 为保守倾向
+# 问卷问题方向
 directions = np.array([
     -1, +1, -1, +1, +1, +1, -1, -1, +1, +1,
     -1, +1, -1, +1, +1, -1, -1, +1, +1, -1
 ])
 
-# 非线性打分函数，加入多个交叉项
+# 打分函数
 def semantic_score(X):
     base = X @ directions.T
     interaction1 = X[:, 4] * X[:, 5]
@@ -41,28 +41,21 @@ def semantic_score(X):
     score = (score + 1) / 2 * 100
     return score
 
-# 改进的数据生成函数
+# 数据生成
 def generate_data(samples=100000, noise_std=5):
-    # 生成答题矩阵，每题 1~5 分
     X = np.random.randint(1, 6, size=(samples, 20))
-
-    # 获取打分（0~100之间）
     y_clean = semantic_score(X)
-
-    # 加入高斯噪声，模拟真实世界偏差
     noise = np.random.normal(loc=0, scale=noise_std, size=samples)
     y_noisy = y_clean + noise
-
-    # 裁剪到合法区间 [0, 100]
     y_final = np.clip(y_noisy, 0, 100)
-
     return X, y_final
 
 X, y = generate_data()
 
-# 模型构建（加入 Dropout + BatchNorm）
+# 显式添加 Input 层
 model = Sequential([
-    Dense(128, activation='relu', input_shape=(20,)),
+    Input(shape=(20,)),  # ← 显式定义输入层，兼容部署
+    Dense(128, activation='relu'),
     BatchNormalization(),
     Dropout(0.3),
 
@@ -74,19 +67,20 @@ model = Sequential([
     BatchNormalization(),
     Dropout(0.2),
 
-    Dense(1, activation='sigmoid')  # 回归输出（0~1）
+    Dense(1, activation='sigmoid')  # 输出：归一化分数
 ])
 
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
 
-# 模型训练
+# 提前终止策略
 early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
 history = model.fit(X, y / 100.0, epochs=100, batch_size=32, validation_split=0.2, callbacks=[early_stop])
 
-# 保存模型和可视化图像
+# 保存为 h5 格式，适配 Render
 os.makedirs("models", exist_ok=True)
 model.save("models/personality_model.h5")
 
+# 可视化训练曲线
 plt.plot(history.history['loss'], label='Train Loss')
 plt.plot(history.history['val_loss'], label='Val Loss')
 plt.title('Training vs Validation Loss')
