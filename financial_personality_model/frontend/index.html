@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>投资人格测试</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>投资人格问卷（共20题）</h2>
-    <form method="POST">
-        {% for i in range(1, 21) %}
-            <label>问题 {{ i }}（输入 1~5）:</label><br>
-            <input type="number" name="q{{ i }}" min="1" max="5" required><br><br>
-        {% endfor %}
-        <input type="submit" value="提交问卷">
-    </form>
+    <div class="container">
+        <h1>投资人格测试</h1>
+        <div id="progressBar" class="progress-bar">0%</div>
+        <form id="quizForm" action="https://financial-personality-1.onrender.com" method="POST">
+            <div id="questionsContainer"></div>
+            <button type="submit" class="submit-btn">提交问卷</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
