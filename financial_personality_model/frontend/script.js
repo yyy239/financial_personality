@@ -146,6 +146,8 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
         return;
     }
 
+    console.log("Sending answers:", JSON.stringify({ answers: answers }));
+
     // 发送到 Flask 后端（部署在 Render）
     fetch("https://financial-personality-1.onrender.com/predict", {
         method: "POST",
