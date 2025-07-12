@@ -134,11 +134,11 @@
       <div class="character-label">人格形象</div>
       <div class="intro-text" id="intro-text"></div>
       <div class="dot-indicator">
-        <span class="dot active" onclick="goToPage(1)"></span>
-        <span class="dot" onclick="goToPage(2)"></span>
-        <span class="dot" onclick="goToPage(3)"></span>
+        <span class="dot active" data-page="1"></span>
+        <span class="dot" data-page="2"></span>
+        <span class="dot" data-page="3"></span>
       </div>
-      <button class="continue-btn" onclick="nextPage()">继续</button>
+      <button class="continue-btn">继续</button>
     </div>
 
     <!-- 第二页：投资特点 -->
@@ -148,15 +148,15 @@
       <div class="character-label">人格形象</div>
       <div class="trait-list">
         <div class="trait-item"><strong>核心优势：</strong><span id="core-advantage"></span></div>
-        <div class="trait-item"><strong>典型行为：</strong><span id="typical-behavior"></span></div>
+        <div class="trageit-item"><strong>典型行为：</strong><span id="typical-behavior"></span></div>
         <div class="trait-item"><strong>适合策略：</strong><span id="suitable-strategy"></span></div>
       </div>
       <div class="dot-indicator">
-        <span class="dot" onclick="goToPage(1)"></span>
-        <span class="dot active" onclick="goToPage(2)"></span>
-        <span class="dot" onclick="goToPage(3)"></span>
+        <span class="dot" data-page="1"></span>
+        <span class="dot active" data-page="2"></span>
+        <span class="dot" data-page="3"></span>
       </div>
-      <button class="continue-btn" onclick="nextPage()">继续</button>
+      <button class="continue-btn">继续</button>
     </div>
 
     <!-- 第三页：代表人物建议 -->
@@ -168,11 +168,11 @@
         <div class="trait-item"><strong>人物建议：</strong><span id="person-advice"></span></div>
       </div>
       <div class="dot-indicator">
-        <span class="dot" onclick="goToPage(1)"></span>
-        <span class="dot" onclick="goToPage(2)"></span>
-        <span class="dot active" onclick="goToPage(3)"></span>
+        <span class="dot" data-page="1"></span>
+        <span class="dot" data-page="2"></span>
+        <span class="dot active" data-page="3"></span>
       </div>
-      <button class="continue-btn" onclick="location.reload()">重新测试</button>
+      <button class="continue-btn">重新测试</button>
     </div>
   </div>
 
@@ -182,43 +182,44 @@
 
     // 人格类型数据
     const personas = [
-      {
-        type: "保守型",
-        intro: "你属于谨慎稳健的投资者，注重本金安全高于一切。在投资决策中，你会优先考虑风险控制，倾向于选择历史悠久、业绩稳定的投资标的。",
-        coreAdvantage: "风险控制能力强，坚持价值投资原则",
-        typicalBehavior: "偏好蓝筹股、指数基金和债券",
-        suitableStrategy: "长期持有，定期再平衡",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Warren_Buffett_KU_Visit.jpg",
-        advice: "沃伦·巴菲特：'规则一：永远不要亏钱。规则二：永远不要忘记规则一。'"
-      },
-      {
-        type: "稳健型",
-        intro: "你是理性平衡的投资者，善于在风险和收益间找到最佳平衡点。你会通过资产配置分散风险，保持投资组合的稳定性。",
-        coreAdvantage: "资产配置合理，情绪稳定",
-        typicalBehavior: "构建投资组合，定期定额投资",
-        suitableStrategy: "60/40股债配置",
-        image: "https://upload.wikimedia.org/wikipedia/commons/2/27/Charlie_Munger_2010_Berkshire_Hathaway.jpg",
-        advice: "查理·芒格：'知道你不知道什么比聪明更重要。'"
-      },
-      {
-        type: "进取型",
-        intro: "你是积极主动的投资者，对市场变化敏感且决策果断。你愿意承担适度风险以获取超额回报，善于挖掘成长潜力大的投资机会。",
-        coreAdvantage: "信息敏感度高，决策果断",
-        typicalBehavior: "关注行业趋势，适度杠杆",
-        suitableStrategy: "成长股投资，行业轮动",
-        image: "https://upload.wikimedia.org/wikipedia/commons/5/59/Peter_Lynch_%281989%29.jpg",
-        advice: "彼得·林奇：'投资你了解的行业，从日常生活发现投资机会。'"
-      },
-      {
-        type: "激进型",
-        intro: "你是敢于冒险的创新投资者，追求高风险高回报。你对新兴领域充满兴趣，愿意尝试前沿科技和颠覆性商业模式的投资。",
-        coreAdvantage: "创新意识强，承受波动能力高",
-        typicalBehavior: "投资加密货币、初创企业",
-        suitableStrategy: "小仓位高风险投资",
-        image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg",
-        advice: "埃隆·马斯克：'失败是成功的选项之一，如果事情没有失败，说明你的创新不够。'"
-      }
-    ];
+  {
+    type: "保守型",
+    intro: "你属于谨慎稳健的投资者，注重本金安全高于一切。在投资决策中，你会优先考虑风险控制，倾向于选择历史悠久、业绩稳定的投资标的。",
+    coreAdvantage: "风险控制能力强，坚持价值投资原则",
+    typicalBehavior: "偏好蓝筹股、指数基金和债券",
+    suitableStrategy: "长期持有，定期再平衡",
+    image: "/images/buffett.jpg",  
+    advice: "沃伦·巴菲特：'规则一：永远不要亏钱。规则二：永远不要忘记规则一。'"
+  },
+  {
+    type: "稳健型",
+    intro: "你是理性平衡的投资者，善于在风险和收益间找到最佳平衡点。你会通过资产配置分散风险，保持投资组合的稳定性。",
+    coreAdvantage: "资产配置合理，情绪稳定",
+    typicalBehavior: "构建投资组合，定期定额投资",
+    suitableStrategy: "60/40股债配置",
+    image: "/images/charlie.jpg",
+    advice: "查理·芒格：'知道你不知道什么比聪明更重要。'"
+  },
+  {
+    type: "进取型",
+    intro: "你是积极主动的投资者，对市场变化敏感且决策果断。你愿意承担适度风险以获取超额回报，善于挖掘成长潜力大的投资机会。",
+    coreAdvantage: "信息敏感度高，决策果断",
+    typicalBehavior: "关注行业趋势，适度杠杆",
+    suitableStrategy: "成长股投资，行业轮动",
+    image: "/images/peter.jpg",
+    advice: "彼得·林奇：'投资你了解的行业，从日常生活发现投资机会。'"
+  },
+  {
+    type: "激进型",
+    intro: "你是敢于冒险的创新投资者，追求高风险高回报。你对新兴领域充满兴趣，愿意尝试前沿科技和颠覆性商业模式的投资。",
+    coreAdvantage: "创新意识强，承受波动能力高",
+    typicalBehavior: "投资加密货币、初创企业",
+    suitableStrategy: "小仓位高风险投资",
+    image: "/images/Elon_Musk.jpg",
+    advice: "埃隆·马斯克：'失败是成功的选项之一，如果事情没有失败，说明你的创新不够。'"
+  }
+];
+
 
     // 根据分数确定人格类型
     let persona;
@@ -227,53 +228,61 @@
     else if (score < 75) persona = personas[2];
     else persona = personas[3];
 
-    // 初始化第一页内容（简介）
+    // 初始化页面内容
     document.getElementById("score-value").textContent = score;
     document.getElementById("persona-type").textContent = persona.type;
     document.getElementById("character-img").src = persona.image;
     document.getElementById("intro-text").textContent = persona.intro;
-
-    // 初始化第二页内容（详细特点）
     document.getElementById("character-img-2").src = persona.image;
     document.getElementById("core-advantage").textContent = persona.coreAdvantage;
     document.getElementById("typical-behavior").textContent = persona.typicalBehavior;
     document.getElementById("suitable-strategy").textContent = persona.suitableStrategy;
-
-    // 初始化第三页内容（建议）
     document.getElementById("character-img-3").src = persona.image;
     document.getElementById("person-advice").textContent = persona.advice;
 
     // 翻页逻辑
     let currentPage = 1;
-    const totalPages = 3;
+    const pages = document.querySelectorAll('.page');
+    const dots = document.querySelectorAll('.dot');
+    const buttons = document.querySelectorAll('.continue-btn');
 
-    function nextPage() {
-      if (currentPage < totalPages) {
-        document.getElementById(`page${currentPage}`).classList.remove('active');
-        currentPage++;
-        document.getElementById(`page${currentPage}`).classList.add('active');
-        updateDots();
-      }
-    }
-
-    function goToPage(pageNum) {
-      document.getElementById(`page${currentPage}`).classList.remove('active');
-      currentPage = pageNum;
-      document.getElementById(`page${currentPage}`).classList.add('active');
-      updateDots();
-    }
-
-    function updateDots() {
-      const dots = document.querySelectorAll('.dot');
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentPage - 1);
+    function showPage(pageNum) {
+      // 隐藏所有页面
+      pages.forEach(page => page.classList.remove('active'));
+      // 显示当前页面
+      document.getElementById(`page${pageNum}`).classList.add('active');
+      
+      // 更新圆点状态
+      dots.forEach(dot => dot.classList.remove('active'));
+      document.querySelectorAll(`.dot[data-page="${pageNum}"]`).forEach(dot => {
+        dot.classList.add('active');
       });
+      
+      currentPage = pageNum;
     }
 
-    // 初始化
-    updateDots();
+    // 按钮点击事件
+    buttons.forEach(button => {
+      button.addEventListener('click', function() {
+        if (currentPage < 3) {
+          showPage(currentPage + 1);
+        } else {
+          location.reload();
+        }
+      });
+    });
+
+    // 圆点点击事件
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        const pageNum = parseInt(this.getAttribute('data-page'));
+        showPage(pageNum);
+      });
+    });
+
+    // 初始化显示第一页
+    showPage(1);
   </script>
 </body>
 </html>
-
 
