@@ -1,58 +1,279 @@
-<!-- result.html -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <title>测评结果</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投资人格测评结果</title>
   <style>
     body {
-      font-family: sans-serif;
-      padding: 40px;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
     .card {
       background: white;
-      border-radius: 12px;
-      padding: 30px;
+      border-radius: 16px;
+      width: 100%;
       max-width: 500px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
     }
-    .persona {
-      font-size: 24px;
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: bold;
       color: #333;
-      margin-top: 20px;
+      margin-bottom: 25px;
     }
-    .score {
-      font-size: 20px;
+    .score-display {
+      font-size: 18px;
       color: #666;
+      margin-bottom: 15px;
+    }
+    .score-value {
+      font-weight: bold;
+      color: #4285F4;
+    }
+    .persona-type {
+      font-size: 28px;
+      font-weight: bold;
+      color: #4285F4;
+      margin-bottom: 10px;
+    }
+    .character-img {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #f0f0f0;
+      border: 3px solid #e0e0e0;
+    }
+    .character-label {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+    .intro-text {
+      font-size: 16px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      text-align: left;
+      padding: 0 15px;
+    }
+    .trait-list {
+      text-align: left;
+      margin: 0 auto 30px;
+      max-width: 80%;
+    }
+    .trait-item {
+      font-size: 15px;
+      color: #444;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .trait-item strong {
+      color: #333;
+    }
+    .dot-indicator {
+      display: flex;
+      justify-content: center;
+      margin: 25px 0;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .dot.active {
+      background-color: #4285F4;
+    }
+    .continue-btn {
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 150px;
+      margin: 0 auto;
+    }
+    .continue-btn:hover {
+      background-color: #3367D6;
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h2>你的投资人格测评结果</h2>
-    <div id="score" class="score"></div>
-    <div id="persona" class="persona"></div>
+    <!-- 第一页：人格类型简介 -->
+    <div class="page active" id="page1">
+      <div class="title">你的投资人格类型是：</div>
+      <div class="score-display">你的测评得分：<span class="score-value" id="score-value">0</span>分</div>
+      <div class="persona-type" id="persona-type"></div>
+      <img class="character-img" id="character-img" src="" alt="人格形象">
+      <div class="character-label">人格形象</div>
+      <div class="intro-text" id="intro-text"></div>
+      <div class="dot-indicator">
+        <span class="dot active" onclick="goToPage(1)"></span>
+        <span class="dot" onclick="goToPage(2)"></span>
+        <span class="dot" onclick="goToPage(3)"></span>
+      </div>
+      <button class="continue-btn" onclick="nextPage()">继续</button>
+    </div>
+
+    <!-- 第二页：投资特点 -->
+    <div class="page" id="page2">
+      <div class="title">你的投资特点</div>
+      <img class="character-img" id="character-img-2" src="" alt="人格形象">
+      <div class="character-label">人格形象</div>
+      <div class="trait-list">
+        <div class="trait-item"><strong>核心优势：</strong><span id="core-advantage"></span></div>
+        <div class="trait-item"><strong>典型行为：</strong><span id="typical-behavior"></span></div>
+        <div class="trait-item"><strong>适合策略：</strong><span id="suitable-strategy"></span></div>
+      </div>
+      <div class="dot-indicator">
+        <span class="dot" onclick="goToPage(1)"></span>
+        <span class="dot active" onclick="goToPage(2)"></span>
+        <span class="dot" onclick="goToPage(3)"></span>
+      </div>
+      <button class="continue-btn" onclick="nextPage()">继续</button>
+    </div>
+
+    <!-- 第三页：代表人物建议 -->
+    <div class="page" id="page3">
+      <div class="title">代表人物建议</div>
+      <img class="character-img" id="character-img-3" src="" alt="人格形象">
+      <div class="character-label">人格形象</div>
+      <div class="trait-list">
+        <div class="trait-item"><strong>人物建议：</strong><span id="person-advice"></span></div>
+      </div>
+      <div class="dot-indicator">
+        <span class="dot" onclick="goToPage(1)"></span>
+        <span class="dot" onclick="goToPage(2)"></span>
+        <span class="dot active" onclick="goToPage(3)"></span>
+      </div>
+      <button class="continue-btn" onclick="location.reload()">重新测试</button>
+    </div>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const score = parseInt(params.get("score"));
 
-    let persona = "";
-    if (score < 25) {
-      persona = "保守型";
-    } else if (score < 50) {
-      persona = "稳健型";
-    } else if (score < 75) {
-      persona = "进取型";
-    } else {
-      persona = "激进型";
+    // 人格类型数据
+    const personas = [
+      {
+        type: "保守型",
+        intro: "你属于谨慎稳健的投资者，注重本金安全高于一切。在投资决策中，你会优先考虑风险控制，倾向于选择历史悠久、业绩稳定的投资标的。",
+        coreAdvantage: "风险控制能力强，坚持价值投资原则",
+        typicalBehavior: "偏好蓝筹股、指数基金和债券",
+        suitableStrategy: "长期持有，定期再平衡",
+        image: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Warren_Buffett_KU_Visit.jpg",
+        advice: "沃伦·巴菲特：'规则一：永远不要亏钱。规则二：永远不要忘记规则一。'"
+      },
+      {
+        type: "稳健型",
+        intro: "你是理性平衡的投资者，善于在风险和收益间找到最佳平衡点。你会通过资产配置分散风险，保持投资组合的稳定性。",
+        coreAdvantage: "资产配置合理，情绪稳定",
+        typicalBehavior: "构建投资组合，定期定额投资",
+        suitableStrategy: "60/40股债配置",
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/27/Charlie_Munger_2010_Berkshire_Hathaway.jpg",
+        advice: "查理·芒格：'知道你不知道什么比聪明更重要。'"
+      },
+      {
+        type: "进取型",
+        intro: "你是积极主动的投资者，对市场变化敏感且决策果断。你愿意承担适度风险以获取超额回报，善于挖掘成长潜力大的投资机会。",
+        coreAdvantage: "信息敏感度高，决策果断",
+        typicalBehavior: "关注行业趋势，适度杠杆",
+        suitableStrategy: "成长股投资，行业轮动",
+        image: "https://upload.wikimedia.org/wikipedia/commons/5/59/Peter_Lynch_%281989%29.jpg",
+        advice: "彼得·林奇：'投资你了解的行业，从日常生活发现投资机会。'"
+      },
+      {
+        type: "激进型",
+        intro: "你是敢于冒险的创新投资者，追求高风险高回报。你对新兴领域充满兴趣，愿意尝试前沿科技和颠覆性商业模式的投资。",
+        coreAdvantage: "创新意识强，承受波动能力高",
+        typicalBehavior: "投资加密货币、初创企业",
+        suitableStrategy: "小仓位高风险投资",
+        image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Elon_Musk_Royal_Society.jpg",
+        advice: "埃隆·马斯克：'失败是成功的选项之一，如果事情没有失败，说明你的创新不够。'"
+      }
+    ];
+
+    // 根据分数确定人格类型
+    let persona;
+    if (score < 25) persona = personas[0];
+    else if (score < 50) persona = personas[1];
+    else if (score < 75) persona = personas[2];
+    else persona = personas[3];
+
+    // 初始化第一页内容（简介）
+    document.getElementById("score-value").textContent = score;
+    document.getElementById("persona-type").textContent = persona.type;
+    document.getElementById("character-img").src = persona.image;
+    document.getElementById("intro-text").textContent = persona.intro;
+
+    // 初始化第二页内容（详细特点）
+    document.getElementById("character-img-2").src = persona.image;
+    document.getElementById("core-advantage").textContent = persona.coreAdvantage;
+    document.getElementById("typical-behavior").textContent = persona.typicalBehavior;
+    document.getElementById("suitable-strategy").textContent = persona.suitableStrategy;
+
+    // 初始化第三页内容（建议）
+    document.getElementById("character-img-3").src = persona.image;
+    document.getElementById("person-advice").textContent = persona.advice;
+
+    // 翻页逻辑
+    let currentPage = 1;
+    const totalPages = 3;
+
+    function nextPage() {
+      if (currentPage < totalPages) {
+        document.getElementById(`page${currentPage}`).classList.remove('active');
+        currentPage++;
+        document.getElementById(`page${currentPage}`).classList.add('active');
+        updateDots();
+      }
     }
 
-    document.getElementById("score").textContent = `你的得分是：${score}`;
-    document.getElementById("persona").textContent = `你的人格类型是：${persona}`;
+    function goToPage(pageNum) {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage = pageNum;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+      updateDots();
+    }
+
+    function updateDots() {
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentPage - 1);
+      });
+    }
+
+    // 初始化
+    updateDots();
   </script>
 </body>
 </html>
+
+
