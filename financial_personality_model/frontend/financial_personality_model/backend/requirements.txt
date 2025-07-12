@@ -1,6 +1,0 @@
-gunicorn
-tensorflow==2.15.0  # 统一使用CPU版
-flask==2.3.2  # 改用更稳定的Flask 2.x
-flask-cors==4.0.0
-h5py==3.10.0  # 必需配套库
-protobuf==3.20.3  # 避免proto版本冲突
