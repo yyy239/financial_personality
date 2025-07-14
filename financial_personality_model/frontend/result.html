@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>投资人格测评结果</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investment Profile Test Result</title>
   <style>
     :root {
       --card-width: 500px;
-      --card-height: 650px;
+      --card-height: 700px;
     }
-    
+
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #7fc9d5;
       margin: 0;
       padding: 20px;
       display: flex;
@@ -23,12 +23,11 @@
     .card {
       background: white;
       border-radius: 16px;
-      width: var(--card-width);
-      height: var(--card-height);
+      width: 600px;
+      height: auto;
       padding: 30px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
-      position: relative;
       display: flex;
       flex-direction: column;
     }
@@ -46,33 +45,21 @@
     .page.active {
       display: flex;
     }
-    .page-content {
-      flex: 1;
-    }
     .title {
       font-size: 22px;
       font-weight: bold;
       color: #333;
       margin-bottom: 25px;
     }
-    .score-display {
-      font-size: 18px;
-      color: #666;
-      margin-bottom: 15px;
-    }
-    .score-value {
-      font-weight: bold;
-      color: #4285F4;
-    }
     .persona-type {
       font-size: 28px;
       font-weight: bold;
       color: #4285F4;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
     .character-img {
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
       margin: 0 auto 20px;
       border-radius: 50%;
       object-fit: cover;
@@ -82,9 +69,9 @@
     .character-label {
       font-size: 16px;
       color: #666;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
-    .intro-text {
+    .intro-text, .trait-list {
       font-size: 16px;
       color: #444;
       line-height: 1.6;
@@ -92,23 +79,40 @@
       text-align: left;
       padding: 0 15px;
     }
-    .trait-list {
-      text-align: left;
-      margin: 0 auto 20px;
-      max-width: 80%;
-    }
     .trait-item {
-      font-size: 15px;
-      color: #444;
-      margin-bottom: 15px;
-      line-height: 1.5;
+      margin-bottom: 12px;
     }
     .trait-item strong {
       color: #333;
     }
-    .footer {
-      margin-top: auto;
-      padding-top: 20px;
+    .tag-label {
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    }
+
+    .tag-values {
+    color: #000000; /* 自定义 tag 的颜色，比如绿色 */
+    font-weight: normal;
+    margin-left: 6px;
+    font-size: 15px;
+    }
+    .tag-box {
+    display: inline-block;
+    border: 1px solid #2196f3;      /* 蓝色边框 */
+    color: #ffffff;                 /* 蓝色文字 */
+    background-color: #2196f3;      /* 浅蓝背景 */
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 4px 8px 4px 0;
+    font-size: 15px;            /* 字号建议为14px，清晰不拥挤 */
+    font-weight: 500;           /* 字体中等加粗，更易读 */
+    font-family: "Segoe UI", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 5px 0;
     }
     .dot-indicator {
       display: flex;
@@ -168,73 +172,68 @@
 <body>
   <div class="card">
     <div class="page-container">
-      <!-- 第一页：人格类型简介 -->
+      <!-- 页 1 -->
       <div class="page active" id="page1">
-        <div class="page-content">
-          <div class="title">你的投资人格类型是：</div>
-          <div class="score-display">你的测评得分：<span class="score-value" id="score-value">0</span>分</div>
-          <div class="persona-type" id="persona-type"></div>
-          <img class="character-img" id="character-img" src="" alt="人格形象">
-          <div class="character-label">人格形象</div>
-          <div class="intro-text" id="intro-text"></div>
+        <div class="title">Your Investment Personality Type：</div>
+        
+        <div class="persona-type" id="persona-type"></div>
+        <img class="character-img" id="character-img" src="" alt="人格形象">
+        <div class="character-label">Persona Profile</div>
+        <div class="intro-text" id="intro-text"></div>
+        <div class="dot-indicator">
+          <span class="dot active" data-page="1"></span>
+          <span class="dot" data-page="2"></span>
+          <span class="dot" data-page="3"></span>
         </div>
-        <div class="footer">
-          <div class="dot-indicator">
-            <span class="dot active" data-page="1"></span>
-            <span class="dot" data-page="2"></span>
-            <span class="dot" data-page="3"></span>
-          </div>
-          <div class="btn-group">
-            <button class="btn continue-btn">继续</button>
-          </div>
+        <div class="btn-group">
+          <button class="btn continue-btn">Next</button>
         </div>
       </div>
 
-      <!-- 第二页：投资特点 -->
+      <!-- 页 2 -->
       <div class="page" id="page2">
-        <div class="page-content">
-          <div class="title">你的投资特点</div>
-          <img class="character-img" id="character-img-2" src="" alt="人格形象">
-          <div class="character-label">人格形象</div>
-          <div class="trait-list">
-            <div class="trait-item"><strong>核心优势：</strong><span id="core-advantage"></span></div>
-            <div class="trait-item"><strong>典型行为：</strong><span id="typical-behavior"></span></div>
-            <div class="trait-item"><strong>适合策略：</strong><span id="suitable-strategy"></span></div>
-          </div>
+        <div class="title">Your Investment Traits</div>
+        <img class="character-img" id="character-img-2" src="" alt="人格形象">
+        <div class="character-label">Persona Profile</div>
+        <div class="trait-list">
+          <div class="trait-item"><strong>Core Advantages：</strong><span id="core-advantage"></span></div>
+          <div class="trait-item"><strong>Typical Behavior：</strong><span id="typical-behavior"></span></div>
+          <div class="trait-item"><strong>Suitable Strategy：</strong><span id="suitable-strategy"></span></div>
         </div>
-        <div class="footer">
-          <div class="dot-indicator">
-            <span class="dot" data-page="1"></span>
-            <span class="dot active" data-page="2"></span>
-            <span class="dot" data-page="3"></span>
-          </div>
-          <div class="btn-group">
-            <button class="btn back-btn">返回</button>
-            <button class="btn continue-btn">继续</button>
-          </div>
+        <div class="dot-indicator">
+          <span class="dot" data-page="1"></span>
+          <span class="dot active" data-page="2"></span>
+          <span class="dot" data-page="3"></span>
+        </div>
+        <div class="btn-group">
+          <button class="btn back-btn">back</button>
+          <button class="btn continue-btn">Next</button>
         </div>
       </div>
 
-      <!-- 第三页：代表人物建议 -->
+      <!-- 页 3 -->
       <div class="page" id="page3">
-        <div class="page-content">
-          <div class="title">代表人物建议</div>
-          <img class="character-img" id="character-img-3" src="" alt="人格形象">
-          <div class="character-label">人格形象</div>
-          <div class="trait-list">
-            <div class="trait-item"><strong>人物建议：</strong><span id="person-advice"></span></div>
+        <div class="title">Advice from the Role Model</div>
+        <img class="character-img" id="character-img-3" src="" alt="人格形象">
+        <div class="character-label">Persona Profile</div>
+        <div class="trait-list">
+          <div class="trait-item"><strong>Famous Quote：</strong><span id="person-advice"></span></div>
+          <div class="trait-item"><strong>Recommended Asset Types：</strong><span id="asset-types"></span></div>
+          <div class="trait-item"><strong>Recommended Resources：</strong><ul id="resources-list"></ul></div>
+          <div class="trait-item-tags">
+            <strong class="tag-label">Profile Key Tags：</strong>
+            <span id="tags-list" class="tag-values"></span>
           </div>
+          
         </div>
-        <div class="footer">
-          <div class="dot-indicator">
-            <span class="dot" data-page="1"></span>
-            <span class="dot" data-page="2"></span>
-            <span class="dot active" data-page="3"></span>
-          </div>
-          <div class="btn-group">
-            <button class="btn back-btn">返回</button>
-            <button class="btn restart-btn">重新测试</button>
-          </div>
+        <div class="dot-indicator">
+          <span class="dot" data-page="1"></span>
+          <span class="dot" data-page="2"></span>
+          <span class="dot active" data-page="3"></span>
+        </div>
+        <div class="btn-group">
+          <button class="btn back-btn">back</button>
+          <button class="btn restart-btn">Retake Test</button>
         </div>
       </div>
     </div>
@@ -244,55 +243,66 @@
     const params = new URLSearchParams(window.location.search);
     const score = parseInt(params.get("score"));
 
-    // 人格类型数据
     const personas = [
-      {
-        type: "保守型",
-        intro: "你属于谨慎稳健的投资者，注重本金安全高于一切。在投资决策中，你会优先考虑风险控制，倾向于选择历史悠久、业绩稳定的投资标的。",
-        coreAdvantage: "风险控制能力强，坚持价值投资原则",
-        typicalBehavior: "偏好蓝筹股、指数基金和债券",
-        suitableStrategy: "长期持有，定期再平衡",
-        image: "/images/buffett.jpg",  
-        advice: "沃伦·巴菲特：'规则一：永远不要亏钱。规则二：永远不要忘记规则一。'"
-      },
-      {
-        type: "稳健型",
-        intro: "你是理性平衡的投资者，善于在风险和收益间找到最佳平衡点。你会通过资产配置分散风险，保持投资组合的稳定性。",
-        coreAdvantage: "资产配置合理，情绪稳定",
-        typicalBehavior: "构建投资组合，定期定额投资",
-        suitableStrategy: "60/40股债配置",
-        image: "/images/charlie.jpg",
-        advice: "查理·芒格：'知道你不知道什么比聪明更重要。'"
-      },
-      {
-        type: "进取型",
-        intro: "你是积极主动的投资者，对市场变化敏感且决策果断。你愿意承担适度风险以获取超额回报，善于挖掘成长潜力大的投资机会。",
-        coreAdvantage: "信息敏感度高，决策果断",
-        typicalBehavior: "关注行业趋势，适度杠杆",
-        suitableStrategy: "成长股投资，行业轮动",
-        image: "/images/peter.jpg",
-        advice: "彼得·林奇：'投资你了解的行业，从日常生活发现投资机会。'"
-      },
-      {
-        type: "激进型",
-        intro: "你是敢于冒险的创新投资者，追求高风险高回报。你对新兴领域充满兴趣，愿意尝试前沿科技和颠覆性商业模式的投资。",
-        coreAdvantage: "创新意识强，承受波动能力高",
-        typicalBehavior: "投资加密货币、初创企业",
-        suitableStrategy: "小仓位高风险投资",
-        image: "/images/Elon_Musk.jpg",
-        advice: "埃隆·马斯克：'失败是成功的选项之一，如果事情没有失败，说明你的创新不够。'"
-      }
-    ];
+    {
+      type: "Conservative——Benjamin Graham",
+      intro: "You are a cautious and stable investor who prioritizes capital preservation above all else. In your investment decisions, you tend to conduct in-depth research into company fundamentals, avoid speculative behavior, and prefer long-term stable returns over short-term high-risk gains. Your style emphasizes defense over offense, and you would rather miss opportunities than take unnecessary risks.",
+      coreAdvantage: "Strong risk control and adherence to value investing principles. This strength comes from a deep understanding of market fluctuations and a high regard for capital preservation. By studying company fundamentals thoroughly, investors can select high-quality assets with sound financials and reasonable valuations, maintaining relative portfolio stability even during turbulent markets and avoiding large losses caused by speculation or herd mentality.",
+      typicalBehavior: "Prefers blue-chip stocks, index funds, and bonds. Blue-chip stocks are typically shares of large, well-established, financially sound companies that offer stable dividends and low volatility. Index funds diversify investments across a basket of stocks, reducing single-stock risk, while bonds provide fixed interest income and principal protection. These assets are relatively low-risk and stable in returns, aligning with the conservative investor's goal of capital preservation and steady income.",
+      suitableStrategy: "Long-term holding and periodic rebalancing. Long-term holding helps investors stay focused and avoid reacting to short-term market noise, allowing them to benefit from the long-term appreciation of high-quality assets. Regular rebalancing involves adjusting asset allocations according to market fluctuations to ensure the portfolio remains aligned with the investor’s risk tolerance and investment objectives, optimizing the risk-return profile.",
+      image: "/images/bjm.jpg",
+      advice: "Benjamin Graham: 'An investment operation is one which, upon thorough analysis, promises safety of principal and a satisfactory return. Operations not meeting these requirements are speculative.'",
+      assetTypes: "Government bonds, blue-chip stocks, money market funds",
+      resources: ["The Intelligent Investor", "Xueqiu.com Columns", "Morningstar Investment Guide"],
+      tags: ["Long-Term", "Stable", "Value Investing"]
+    },
+    {
+      type: "Balanced——Charlie Munger",
+      intro: "You are a rational and balanced investor who excels at finding stability between risk and return. You tend to build diversified portfolios and reduce overall volatility through strategic allocation, while maintaining steady growth. Your investment decisions are calm and objective, with a strong focus on long-term accumulation and financial discipline.",
+      coreAdvantage: "Sound asset allocation and emotional stability. Through scientific allocation strategies, you construct a diversified portfolio based on the risk-return profiles and correlations of different asset classes. This reduces the impact of any single asset’s volatility on your overall portfolio. Emotional stability enables you to remain calm during market fluctuations, avoid making decisions driven by fear or greed, and stick to your strategy for long-term success.",
+      typicalBehavior: "Constructing a portfolio, investing regularly through dollar-cost averaging. You create a well-diversified asset mix based on your risk tolerance, goals, and market outlook. Regular fixed-amount investing reduces the impact of market fluctuations on cost basis and helps build strong investing habits and financial discipline.",
+      suitableStrategy: "60/40 stock-bond allocation. This classic strategy allocates 60% to equities for growth and 40% to bonds for stability. Stocks offer higher return potential but with greater volatility, while bonds provide stability and fixed income. This blend aims to balance risk and reward for long-term, steady growth.",
+      image: "/images/charlie.jpg",
+      advice: "Charlie Munger: 'A great business at a fair price is superior to a fair business at a great price.'",
+      assetTypes: "Index funds, bonds, REITs",
+      resources: ["Poor Charlie's Almanack", "ETF University", "Morningstar Video Courses"],
+      tags: ["Steady Growth", "Calm", "Portfolio Optimization"]
+    },
+    {
+      type: "Aggressive——Peter Lynch",
+      intro: "You are a proactive investor who quickly spots market opportunities and enjoys identifying growth stocks. You pay attention to industry trends, company fundamentals, and macroeconomic changes, and are willing to take on moderate volatility in exchange for higher returns. For you, investing is not only a matter of judgment but also an extension of everyday insights.",
+      coreAdvantage: "High sensitivity to information and decisive decision-making. You excel at capturing valuable signals from industry news, company data, and macroeconomic indicators, and you act quickly. In investing, information is power — your ability to analyze and act swiftly gives you an edge. Your decisiveness allows you to capitalize on opportunities before they’re gone.",
+      typicalBehavior: "Focus on industry trends, use moderate leverage. By researching industry growth, competition, and innovation, you identify high-potential companies. Using leverage (responsibly) can amplify gains, such as through margin or leveraged ETFs — but must be controlled to avoid excessive loss during downturns.",
+      suitableStrategy: "Growth stock investing and sector rotation. Growth stocks are companies with strong potential in emerging sectors or unique competitive advantages. Sector rotation means shifting allocations to different industries based on the economic cycle. These strategies suit active investors willing to take risks for greater rewards.",
+      image: "/images/peter.jpg",
+      advice: "Peter Lynch: 'If you invest $1,000 in a stock, all you can lose is $1,000, but you stand to gain $10,000 or even $50,000 over time if you’re patient.'",
+      assetTypes: "Tech stocks, growth stocks, thematic ETFs",
+      resources: ["One Up on Wall Street", "Financial statement analysis sites", "YouTube Growth Investing Channels"],
+      tags: ["Active", "Growth", "Industry Awareness"]
+    }
+,
+    {
+      type: "Radical——Elon Musk",
+      intro: "You are a bold, innovation-driven investor with a passion for new technologies and disruptive trends. You favor high-growth, high-volatility assets and believe early entry can lead to massive rewards. You are forward-thinking and willing to endure short-term fluctuations for long-term breakthroughs.",
+      coreAdvantage: "Strong sense of innovation and high risk tolerance. You have a sharp eye for disruptive technologies, business models, and trends. You're unafraid of investing in uncertain or volatile fields, believing innovation creates value. Your ability to stay committed through volatility enables long-term gains.",
+      typicalBehavior: "Investing in cryptocurrency and startups. Crypto is highly volatile but offers major upside potential, requiring knowledge of blockchain, market trends, and regulation. Startups are risky but can become unicorns. You seek out visionary projects and support them at early stages.",
+      suitableStrategy: "Small-position, high-risk investing. Allocate only a portion of your capital to high-risk assets, balancing the rest with more stable holdings. This strategy lets you chase high returns without exposing your entire portfolio to large drawdowns.",
+      image: "/images/Elon_Musk.jpg",
+      advice: "Elon Musk: 'When something is important enough, you do it even if the odds are not in your favor.'",
+      assetTypes: "Cryptocurrency, unicorn startups, AI sector",
+      resources: ["ARK Invest Reports", "Crypto Research Institute", "Zero to One"],
+      tags: ["Innovative", "Risk-Taking", "High Volatility"]
+    }
+];
 
-    // 根据分数确定人格类型
+
     let persona;
     if (score < 25) persona = personas[0];
     else if (score < 50) persona = personas[1];
     else if (score < 75) persona = personas[2];
     else persona = personas[3];
 
-    // 初始化页面内容
-    document.getElementById("score-value").textContent = score;
+    
     document.getElementById("persona-type").textContent = persona.type;
     document.getElementById("character-img").src = persona.image;
     document.getElementById("intro-text").textContent = persona.intro;
@@ -302,66 +312,58 @@
     document.getElementById("suitable-strategy").textContent = persona.suitableStrategy;
     document.getElementById("character-img-3").src = persona.image;
     document.getElementById("person-advice").textContent = persona.advice;
+    document.getElementById("asset-types").textContent = persona.assetTypes;
+    document.getElementById("resources-list").innerHTML = persona.resources.map(r => `<li>${r}</li>`).join("");
+    document.getElementById("tags-list").innerHTML = persona.tags.map(tag => `<span class="tag-box">${tag}</span>`).join("");
 
-    // 翻页逻辑
+
     let currentPage = 1;
-    const pages = document.querySelectorAll('.page');
-    const dots = document.querySelectorAll('.dot');
-    const continueBtns = document.querySelectorAll('.continue-btn');
-    const backBtns = document.querySelectorAll('.back-btn');
-    const restartBtn = document.querySelector('.restart-btn');
+    const pages = document.querySelectorAll(".page");
+    const dots = document.querySelectorAll(".dot");
+    const continueBtns = document.querySelectorAll(".continue-btn");
+    const backBtns = document.querySelectorAll(".back-btn");
 
-    function showPage(pageNum) {
-      // 隐藏所有页面
-      pages.forEach(page => page.classList.remove('active'));
-      // 显示当前页面
-      document.getElementById(`page${pageNum}`).classList.add('active');
-      
-      // 更新圆点状态
-      dots.forEach(dot => dot.classList.remove('active'));
-      document.querySelectorAll(`.dot[data-page="${pageNum}"]`).forEach(dot => {
-        dot.classList.add('active');
-      });
-      
-      currentPage = pageNum;
-    }
+    function showPage(num) {
+    pages.forEach(p => p.classList.remove("active"));
+    pages[num - 1].classList.add("active");
 
-    // 继续按钮点击事件
-    continueBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        if (currentPage < 3) {
-          showPage(currentPage + 1);
-        }
-      });
-    });
-
-    // 返回按钮点击事件
-    backBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        if (currentPage > 1) {
-          showPage(currentPage - 1);
-        }
-      });
-    });
-
-    // 重新测试按钮 - 修改为返回index.html
-    if (restartBtn) {
-      restartBtn.addEventListener('click', function() {
-        window.location.href = "index.html";
-      });
-    }
-
-    // 圆点点击事件
     dots.forEach(dot => {
-      dot.addEventListener('click', function() {
-        const pageNum = parseInt(this.getAttribute('data-page'));
-        showPage(pageNum);
+      if (parseInt(dot.dataset.page) === num) {
+        dot.classList.add("active");
+      } else {
+        dot.classList.remove("active");
+    }
+  });
+
+  currentPage = num;
+}
+
+
+    continueBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (currentPage < 3) showPage(currentPage + 1);
       });
     });
 
-    // 初始化显示第一页
+    backBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (currentPage > 1) showPage(currentPage - 1);
+      });
+    });
+
+    document.querySelectorAll(".dot").forEach(dot => {
+      dot.addEventListener("click", () => {
+        showPage(parseInt(dot.dataset.page));
+      });
+    });
+
+    document.querySelector(".restart-btn").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
     showPage(1);
   </script>
 </body>
 </html>
+
 

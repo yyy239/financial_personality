@@ -1,25 +1,26 @@
 const questions = [
-    { text: "1. 你是否经常计划长期的财务目标？", labels: ["从不", "总是"] },
-    { text: "2. 面对市场波动你会保持冷静吗？", labels: ["非常紧张", "非常冷静"] },
-    { text: "3. 你更愿意将钱存银行而非投资？", labels: ["完全不同意", "完全同意"] },
-    { text: "4. 资产短期下跌20%你会继续持有吗？", labels: ["立即卖出", "坚定持有"] },
-    { text: "5. 你喜欢尝试新的投资机会吗？", labels: ["完全不喜欢", "非常喜欢"] },
-    { text: "6. 你相信自己能选出好股票吗？", labels: ["完全没有信心", "非常有信心"] },
-    { text: "7. 你会因朋友建议改变投资决策吗？", labels: ["从不", "总是"] },
-    { text: "8. 你是否倾向将收入存起来？", labels: ["完全不存", "大量存"] },
-    { text: "9. 你更关注长期回报还是短期收益？", labels: ["短期为主", "长期为主"] },
-    { text: "10. 你是否愿意承担高风险换高回报？", labels: ["完全不愿意", "非常愿意"] },
-    { text: "11. 你是否有设定财务预算的习惯？", labels: ["从不", "总是"] },
-    { text: "12. 你是否会关注财经新闻来指导投资？", labels: ["从不", "非常频繁"] },
-    { text: "13. 你是否会分散投资而不是集中投资？", labels: ["完全不分散", "高度分散"] },
-    { text: "14. 你如何看待亏损后的再投资？", labels: ["立即退出", "坚持再投"] },
-    { text: "15. 你是否愿意投资于你不了解的领域？", labels: ["完全不愿意", "非常愿意"] },
-    { text: "16. 你是否曾有明确的资产配置策略？", labels: ["从未有过", "非常清晰"] },
-    { text: "17. 你是否有固定的投资周期？", labels: ["没有计划", "非常规律"] },
-    { text: "18. 你是否会在市场恐慌时加仓？", labels: ["完全不会", "积极加仓"] },
-    { text: "19. 你更信赖数据还是直觉进行投资？", labels: ["完全靠直觉", "完全靠数据"] },
-    { text: "20. 你会定期评估和调整投资组合吗？", labels: ["从不评估", "定期调整"] }
+    { text: "1. Do you often plan for long-term financial goals?", labels: ["Never", "Always"] },
+    { text: "2. Can you stay calm during market fluctuations?", labels: ["Very nervous", "Very calm"] },
+    { text: "3. Do you prefer saving money in the bank over investing?", labels: ["Strongly disagree", "Strongly agree"] },
+    { text: "4. If your assets drop 20% in the short term, will you hold them?", labels: ["Sell immediately", "Hold firmly"] },
+    { text: "5. Do you like to try new investment opportunities?", labels: ["Strongly dislike", "Strongly like"] },
+    { text: "6. Do you believe you can pick good stocks?", labels: ["No confidence at all", "Very confident"] },
+    { text: "7. Do you change your investment decisions based on friends' advice?", labels: ["Never", "Always"] },
+    { text: "8. Do you tend to save a portion of your income?", labels: ["Save nothing", "Save a lot"] },
+    { text: "9. Do you focus more on long-term returns or short-term gains?", labels: ["Short-term focus", "Long-term focus"] },
+    { text: "10. Are you willing to take high risks for high returns?", labels: ["Not willing at all", "Very willing"] },
+    { text: "11. Do you have a habit of setting a financial budget?", labels: ["Never", "Always"] },
+    { text: "12. Do you follow financial news to guide your investments?", labels: ["Never", "Very frequently"] },
+    { text: "13. Do you diversify your investments rather than concentrate them?", labels: ["No diversification", "Highly diversified"] },
+    { text: "14. How do you react to reinvesting after a loss?", labels: ["Exit immediately", "Keep reinvesting"] },
+    { text: "15. Are you willing to invest in fields you're not familiar with?", labels: ["Not willing at all", "Very willing"] },
+    { text: "16. Have you ever had a clear asset allocation strategy?", labels: ["Never had one", "Very clear"] },
+    { text: "17. Do you follow a fixed investment schedule?", labels: ["No plan", "Very regular"] },
+    { text: "18. Do you buy more when the market is in panic?", labels: ["Never", "Buy actively"] },
+    { text: "19. Do you rely more on data or intuition when investing?", labels: ["Only intuition", "Only data"] },
+    { text: "20. Do you regularly evaluate and adjust your portfolio?", labels: ["Never evaluate", "Adjust regularly"] }
 ];
+
 
 const container = document.getElementById("questionsContainer");
 const progressBar = document.getElementById("progressBar");
@@ -88,7 +89,7 @@ function scrollToNextUnanswered(fromIndex) {
         }
     }
     // 所有题目已答完
-    console.log("所有题目已完成，请点击提交");
+    console.log("All questions are complete, please click to submit");
 }
 
 function smoothScrollTo(targetY, duration) {
@@ -142,9 +143,10 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
     }
 
     if (unanswered.length > 0) {
-        alert(`请完成以下题目：第 ${unanswered.join("、")} 题`);
+        alert(`Please complete the following questions: Question ${unanswered.join(", ")}`);
         return;
     }
+    
 
     console.log("Sending answers:", JSON.stringify({ answers: answers }));
 
@@ -165,7 +167,7 @@ document.getElementById("quizForm").addEventListener("submit", function (e) {
     
     .catch((err) => {
         console.error(err);
-        alert("提交失败，请稍后再试。");
-    });
+        alert("Submission failed, please try again later.");
+    });    
 });
 

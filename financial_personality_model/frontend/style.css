@@ -30,8 +30,10 @@ h1 {
 }
 
 .question-text {
-    margin-bottom: 12px;
-    font-weight: 500;
+    margin-bottom: 28px;
+    font-weight: 800;
+    font-size: 22px;
+    text-align: center;
 }
 
 .options {

@@ -25,17 +25,18 @@ def semantic_score(X):
     interaction8 = X[:, 0] * X[:, 11]
 
     raw_score = (
-        base
-        + 0.5 * interaction1
-        + 0.5 * interaction2
-        + 0.4 * interaction3
-        + 0.4 * interaction4
-        + 0.4 * interaction5
-        - 0.3 * interaction6
-        - 0.3 * interaction7
-        + 0.4 * interaction8
-        - 0.4 * suppression
-    )
+    base
+    + 0.2 * interaction1
+    + 0.2 * interaction2
+    + 0.15 * interaction3
+    + 0.15 * interaction4
+    + 0.15 * interaction5
+    - 0.1 * interaction6
+    - 0.1 * interaction7
+    + 0.15 * interaction8
+    - 0.15 * suppression
+)
+
 
     score = np.tanh(raw_score / 15)
     score = (score + 1) / 2 * 100
