@@ -167,6 +167,13 @@
     .restart-btn:hover {
       background-color: #2d9249;
     }
+    .home-btn {
+      background-color: #f1f1f1;
+      color: #555;
+    }
+    .home-btn:hover {
+      background-color: #e0e0e0;
+    }
   </style>
 </head>
 <body>
@@ -234,6 +241,7 @@
         <div class="btn-group">
           <button class="btn back-btn">back</button>
           <button class="btn restart-btn">Retake Test</button>
+          <button class="btn home-btn">Home</button>
         </div>
       </div>
     </div>
@@ -322,6 +330,7 @@
     const dots = document.querySelectorAll(".dot");
     const continueBtns = document.querySelectorAll(".continue-btn");
     const backBtns = document.querySelectorAll(".back-btn");
+    const homeBtn = document.querySelector(".home-btn");
 
     function showPage(num) {
     pages.forEach(p => p.classList.remove("active"));
@@ -357,6 +366,10 @@
       });
     });
 
+    homeBtn.addEventListener("click", () => {
+      window.location.href = "https://main-portal-three.vercel.app/";
+    });
+
     document.querySelector(".restart-btn").addEventListener("click", () => {
       window.location.href = "index.html";
     });
@@ -365,5 +378,4 @@
   </script>
 </body>
 </html>
-
 
